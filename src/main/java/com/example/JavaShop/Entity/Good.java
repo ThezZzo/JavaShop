@@ -1,42 +1,37 @@
 package com.example.JavaShop.Entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name="goods")
 public class Good {
 
     @Id
-    @Column(name="goodId")
+    @Column(name="good_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    @Setter
-    private long goodId;
 
-    @Column(name = "name")
-    @Getter
-    @Setter
+    private Long id;
+
+    @Column(name = "name", nullable = false)
+
     private String name;
 
-    @Column(name="price")
-    @Getter
-    @Setter
+    @Column(name="price", nullable = false)
+
     private double price;
 
-    @ManyToOne
-    @JoinColumn(name="companyId", nullable=false)
-    @Getter
-    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="company_id", nullable=false)
     private Company company;
 
-    @ManyToOne
-    @JoinColumn(name="categoryId", nullable=false)
-    @Getter
-    @Setter
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="category_id", nullable=false)
     private Category category;
 
     public Good() {

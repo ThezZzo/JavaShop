@@ -1,32 +1,31 @@
 package com.example.JavaShop.Entity;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
+@Data
 @Entity
 @Table(name="companies")
-
 public class Company {
-
     @Id
-    @Column(name="companyId")
+    @Column(name="company_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
-    private long companyId;
+
+    private Long id;
 
     @Column(name = "name", nullable = false)
-    @Getter
-    @Setter
+
     private String name;
 
-    @OneToMany(mappedBy = "company")
-    @Getter
-    @Setter
-    private Set<Good> goods;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, targetEntity = Good.class)
+    private List<Good> goods;
 
     public Company() {
 
