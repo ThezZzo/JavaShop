@@ -1,5 +1,8 @@
 package com.example.JavaShop.Entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,8 +27,9 @@ public class Company {
 
     private String name;
 
-    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, targetEntity = Good.class)
-    private List<Good> goods;
+    @JsonBackReference
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL, targetEntity = Good.class, orphanRemoval = true)
+    private List<Good> goods = new ArrayList<Good>();;
 
     public Company() {
 
